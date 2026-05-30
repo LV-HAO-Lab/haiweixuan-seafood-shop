@@ -35,19 +35,19 @@ enum Category {
 }
 
 model User {
-  id           String    @id @default(cuid())
-  name         String
-  email        String    @unique
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
   passwordHash  String
+  role          Role      @default(USER)
   emailVerified DateTime?
   image         String?
-  role          Role      @default(USER)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  addresses    Address[]
-  orders       Order[]
-  accounts     Account[]
-  sessions     Session[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  addresses     Address[]
+  orders        Order[]
+  accounts      Account[]
+  sessions      Session[]
 }
 
 model Account {
@@ -128,10 +128,8 @@ model ProductSKU {
 model Order {
   id             String      @id @default(cuid())
   userId         String
-  // Orders must not be deleted when a user is deleted — retain order history for accounting/audit
   user           User        @relation(fields: [userId], references: [id], onDelete: Restrict)
   addressId      String
-  // Orders must not be deleted when an address is deleted — retain order history for accounting/audit
   address        Address     @relation(fields: [addressId], references: [id], onDelete: Restrict)
   status         OrderStatus @default(PENDING)
   totalAmount    Decimal     @db.Decimal(10, 2)

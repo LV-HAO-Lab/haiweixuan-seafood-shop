@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { Minus, Plus, ShoppingCart } from 'lucide-react'
 import { useCart } from '@/hooks/useCart'
-import { formatPrice } from '@/lib/utils'
+import { formatPrice, getImages } from '@/lib/utils'
 import SkuSelector from '@/components/product/SkuSelector'
 
 interface SkuItem {
@@ -55,7 +55,7 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
       name: product.name,
       skuLabel: selectedSku.sku,
       price: Number(selectedSku.price),
-      image: product.images[0] || '',
+      image: getImages(product.images)[0] || '',
       quantity,
       stock: selectedSku.stock,
     })
@@ -85,7 +85,7 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
       name: product.name,
       skuLabel: selectedSku.sku,
       price: Number(selectedSku.price),
-      image: product.images[0] || '',
+      image: getImages(product.images)[0] || '',
       quantity,
       stock: selectedSku.stock,
     })

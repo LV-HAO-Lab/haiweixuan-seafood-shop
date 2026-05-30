@@ -10,6 +10,15 @@ export function formatPrice(price: number | string): string {
   return `¥${num.toFixed(2)}`
 }
 
+/** Parse images field — handles both SQLite (JSON string) and PostgreSQL (String[]) */
+export function getImages(images: unknown): string[] {
+  if (Array.isArray(images)) return images
+  if (typeof images === 'string') {
+    try { return JSON.parse(images) } catch { return images ? [images] : [] }
+  }
+  return []
+}
+
 export function formatDate(date: Date | string): string {
   return new Date(date).toLocaleString('zh-CN', {
     year: 'numeric',

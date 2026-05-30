@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import { Badge } from '@/components/ui/badge'
 import { CATEGORY_LABELS } from '@/types'
-import { formatPrice } from '@/lib/utils'
-import { cn } from '@/lib/utils'
+import { cn, formatPrice, getImages } from '@/lib/utils'
 
 interface ProductCardProduct {
   id: string
@@ -21,7 +20,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, className }: ProductCardProps) {
   const price = product.skus?.[0]?.price ?? product.basePrice
-  const imageUrl = product.images?.[0]
+  const imageUrl = getImages(product.images)[0]
 
   return (
     <Link

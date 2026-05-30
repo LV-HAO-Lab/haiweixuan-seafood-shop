@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import { Star } from 'lucide-react'
 import { prisma } from '@/lib/prisma'
 import { Badge } from '@/components/ui/badge'
-import { formatPrice } from '@/lib/utils'
+import { formatPrice, getImages } from '@/lib/utils'
 import { CATEGORY_LABELS } from '@/types'
 import AddToCartButton from './AddToCartButton'
 import ReviewSection from './ReviewSection'
@@ -55,7 +55,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const clientProduct = {
     id: product.id,
     name: product.name,
-    images: product.images,
+    images: getImages(product.images),
     skus: product.skus.map((sku) => ({
       id: sku.id,
       sku: sku.sku,
@@ -71,9 +71,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* LEFT: Image area */}
         <div className="bg-gradient-to-br from-ocean-50 to-amber-50 rounded-card h-80 md:h-96 flex items-center justify-center overflow-hidden">
-          {product.images[0] ? (
+          {getImages(product.images)[0] ? (
             <img
-              src={product.images[0]}
+              src={getImages(product.images)[0]}
               alt={product.name}
               className="h-full w-full object-cover"
             />

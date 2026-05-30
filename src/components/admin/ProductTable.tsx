@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { CATEGORY_LABELS } from '@/types'
-import { formatPrice } from '@/lib/utils'
+import { formatPrice, getImages } from '@/lib/utils'
 
 interface Sku {
   id: string
@@ -60,7 +60,8 @@ export default function ProductTable({ products, onRefresh }: ProductTableProps)
   }
 
   const getFirstImage = (product: Product) => {
-    if (product.images && product.images.length > 0) return product.images[0]
+    const images = getImages(product.images)
+    if (images.length > 0) return images[0]
     for (const sku of product.skus) {
       if (sku.image) return sku.image
     }

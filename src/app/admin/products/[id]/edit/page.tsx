@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Plus, Trash2 } from 'lucide-react'
+import { getImages } from '@/lib/utils'
 import { CATEGORY_LABELS } from '@/types'
 
 interface SkuFormItem {
@@ -56,7 +57,7 @@ export default function EditProductPage() {
         setName(product.name || '')
         setDescription(product.description || '')
         setCategory(product.category || '')
-        setImagesText((product.images || []).join('\n'))
+        setImagesText(getImages(product.images).join('\n'))
         setBasePrice(String(product.basePrice || ''))
         setIsPublished(product.isPublished ?? true)
 
