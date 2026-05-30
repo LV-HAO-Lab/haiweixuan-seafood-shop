@@ -20,9 +20,9 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold text-amber-400 mb-3">客户服务</h3>
             <ul className="space-y-2 text-sm text-gray-300">
-              <li>服务热线：400-888-XXXX</li>
+              <li>服务热线：17837817518</li>
               <li>服务时间：9:00-21:00</li>
-              <li>电子邮箱：service@haiweixuan.com</li>
+              <li>电子邮箱：1099462341@qq.com</li>
             </ul>
           </div>
 
