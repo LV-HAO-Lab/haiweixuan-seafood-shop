@@ -38,8 +38,10 @@ model User {
   id           String    @id @default(cuid())
   name         String
   email        String    @unique
-  passwordHash String
-  role         Role      @default(USER)
+  passwordHash  String
+  emailVerified DateTime?
+  image         String?
+  role          Role      @default(USER)
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   addresses    Address[]
@@ -126,9 +128,11 @@ model ProductSKU {
 model Order {
   id             String      @id @default(cuid())
   userId         String
-  user           User        @relation(fields: [userId], references: [id])
+  // Orders must not be deleted when a user is deleted — retain order history for accounting/audit
+  user           User        @relation(fields: [userId], references: [id], onDelete: Restrict)
   addressId      String
-  address        Address     @relation(fields: [addressId], references: [id])
+  // Orders must not be deleted when an address is deleted — retain order history for accounting/audit
+  address        Address     @relation(fields: [addressId], references: [id], onDelete: Restrict)
   status         OrderStatus @default(PENDING)
   totalAmount    Decimal     @db.Decimal(10, 2)
   paymentMethod  PaymentMethod?
